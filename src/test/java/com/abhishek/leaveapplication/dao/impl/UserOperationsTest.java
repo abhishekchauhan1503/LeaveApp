@@ -30,6 +30,14 @@ public class UserOperationsTest extends
 	private UserDaoImpl userDaoImpl;
 	private RoleDaoImpl roleDaoImpl;
 	private static final long VALID_ROLE_ID = 1;
+	private static final long DEFAULT_MANAGER_ID = 0;
+	private static final String MANAGER_USERNAME = "manager";
+	private static final String USER_USERNAME = "Abhishek";
+	private static final String PASSWORD = "password";
+	private static final String MANAGER_ROLE_NAME = "Manager";
+	private static final String USER_ROLE_NAME = "User";
+	private static final long MANAGER_ID = 1;
+	private static final long USER_ID = 2;
 
 	@Before
 	public void setUp() throws Exception {
@@ -58,15 +66,36 @@ public class UserOperationsTest extends
 	@Test
 	public void createUser_ValidUser_ReturnsOne() throws Exception {
 		User user = new User();
-		Role roleType = new Role();
-		roleType.setRoleId(1);
-		roleType.setRoleName("Admin");
-		user.setUserName("Abhishek");
-		user.setPassword("password");
+		Role managerRole = new Role();
+		managerRole.setRoleId(1);
+		managerRole.setRoleName(MANAGER_ROLE_NAME);
+		Role userRole = new Role();
+		userRole.setRoleId(2);
+		userRole.setRoleName(USER_ROLE_NAME);
 
-		user.setRoleType(roleType);
+		user.setUserName(USER_USERNAME);
+		user.setPassword(PASSWORD);
+		User manager = new User();
+		manager.setPassword(PASSWORD);
+		manager.setUserName(MANAGER_USERNAME);
+		manager.setRoleType(managerRole);
+		user.setManagerId(manager);
+		user.setRoleType(userRole);
+		roleDaoImpl.createRole(managerRole);
+		roleDaoImpl.createRole(userRole);
+		long managerId = userDaoImpl.createUser(manager);
 		long id = userDaoImpl.createUser(user);
-		assertEquals(1, id);
+		User receivedManager = userDaoImpl.getUser(MANAGER_USERNAME, 0);
+		User receivedUser = userDaoImpl.getUser(USER_USERNAME, 0);
+		assertNotNull(receivedManager);
+		assertEquals(managerRole, receivedManager.getRoleType());
+		assertEquals(MANAGER_USERNAME, receivedManager.getUserName());
+		assertEquals(PASSWORD, receivedManager.getPassword());
+		assertNotNull(receivedUser);
+		assertEquals(userRole, receivedUser.getRoleType());
+		assertEquals(USER_USERNAME, receivedUser.getUserName());
+		assertEquals(PASSWORD, receivedUser.getPassword());
+		assertEquals(receivedManager, receivedUser.getManagerId());
 	}
 
 	@Test(expected = Exception.class)
@@ -85,20 +114,20 @@ public class UserOperationsTest extends
 	public void createRole_ValidRoleWithAttributes_ReturnsIdAsOne()
 			throws Exception {
 		Role roleCreated = new Role();
-		roleCreated.setRoleId(1);
-		roleCreated.setRoleName("Admin");
+		roleCreated.setRoleId(MANAGER_ID);
+		roleCreated.setRoleName(MANAGER_ROLE_NAME);
 		long id = roleDaoImpl.createRole(roleCreated);
-		assertEquals(1, id);
+		assertEquals(MANAGER_ID, id);
 	}
 
 	@Test
 	public void getRole_ValidRoleId_ReturnsRole() throws Exception {
 		Role roleCreated = new Role();
-		roleCreated.setRoleId(0);
-		roleCreated.setRoleName("Admin");
+		roleCreated.setRoleId(MANAGER_ID);
+		roleCreated.setRoleName(MANAGER_ROLE_NAME);
 		long id = roleDaoImpl.createRole(roleCreated);
-		assertEquals(1, id);
-		Role roleReceived = roleDaoImpl.getRole(VALID_ROLE_ID);
+		assertEquals(MANAGER_ID, id);
+		Role roleReceived = roleDaoImpl.getRole(MANAGER_ID);
 		assertEquals(roleCreated, roleReceived);
 	}
 

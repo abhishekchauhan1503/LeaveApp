@@ -9,9 +9,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "USERS")
+@Table(name = "USERS", uniqueConstraints= @UniqueConstraint(columnNames={"USERNAME"}))
 public class User {
 
 	@Id
@@ -30,7 +31,7 @@ public class User {
 	private Role roleType;
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "MANAGER_ID", nullable = false, columnDefinition = "bigint default 1")
+	@JoinColumn(name = "MANAGER_ID", columnDefinition = "bigint default 1")
 	private User managerId;
 	public long getId() {
 		return id;
@@ -62,6 +63,14 @@ public class User {
 
 	public void setRoleType(Role roleType) {
 		this.roleType = roleType;
+	}
+
+	public User getManagerId() {
+		return managerId;
+	}
+
+	public void setManagerId(User managerId) {
+		this.managerId = managerId;
 	}
 
 }
