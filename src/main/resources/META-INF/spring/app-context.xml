@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+  http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+  http://www.springframework.org/schema/aop 
+  http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+  http://www.springframework.org/schema/context 
+  http://www.springframework.org/schema/context/spring-context-2.5.xsd
+  http://www.springframework.org/schema/tx 
+  http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+	<beans:description>Example configuration to get you started.
+	</beans:description>
+
+	<tx:annotation-driven />
+	<context:annotation-config />
+	<context:component-scan base-package="com.abhishek.leaveapplication" />
+
+	<beans:bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close" p:driverClassName="com.mysql.jdbc.Driver"
+		p:url="jdbc:mysql://localhost:3306/LeaveApplication" p:username="root"
+		p:password="nakhrali" />
+
+	<beans:bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<beans:property name="dataSource" ref="dataSource" />
+
+		<beans:property name="configLocation">
+			<beans:value>classpath:hibernate.cfg.xml</beans:value>
+		</beans:property>
+		<beans:property name="configurationClass">
+			<beans:value>org.hibernate.cfg.AnnotationConfiguration</beans:value>
+		</beans:property>
+		<beans:property name="hibernateProperties">
+			<beans:props>
+				<beans:prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect
+				</beans:prop>
+				<beans:prop key="hibernate.show_sql">true</beans:prop>
+			</beans:props>
+		</beans:property>
+	</beans:bean>
+
+
+	<beans:bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<beans:property name="sessionFactory" ref="sessionFactory" />
+	</beans:bean>
+
+
+	<beans:bean id="userTest" class="com.abhishek.leaveapplication.model.User">
+		<beans:property name="userName" value="Abhishek"></beans:property>
+		<beans:property name="password" value="password"></beans:property>
+		<beans:property name="roleType" ref="roleTest"></beans:property>
+	</beans:bean>
+
+	<beans:bean id="roleTest" class="com.abhishek.leaveapplication.model.Role">
+		<beans:property name="roleName" value="Admin"></beans:property>
+	</beans:bean>
+	<beans:bean id="userDao"
+		class="com.abhishek.leaveapplication.dao.impl.UserDaoImpl" />
+	<beans:bean id="roleDao"
+		class="com.abhishek.leaveapplication.dao.impl.RoleDaoImpl" />
+	<beans:bean id="util" class="com.abhishek.leaveapplication.utils.Util" />
+</beans:beans>
