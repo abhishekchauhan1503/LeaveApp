@@ -21,13 +21,14 @@ import com.abhishek.leaveapplication.dao.impl.UserDaoImpl;
 import com.abhishek.leaveapplication.model.Role;
 import com.abhishek.leaveapplication.model.User;
 
-@ContextConfiguration(locations = {"classpath:/META-INF/spring/app-context.xml"})
-public class Util{
+@ContextConfiguration(locations = { "classpath:/META-INF/spring/app-context.xml" })
+public class Util {
 
 	/**
 	 * @param args
 	 */
 	private User user;
+	private Role role;
 
 	public Util() {
 		super();
@@ -40,9 +41,10 @@ public class Util{
 
 	@Autowired
 	private UserDAO userDao;
-	
+
 	@Autowired
 	private RoleDAO roleDao;
+
 	public static void exportSchema() {
 		AnnotationConfiguration config = new AnnotationConfiguration();
 		config.addAnnotatedClass(Role.class);
@@ -56,29 +58,36 @@ public class Util{
 	public void testRoles() {
 
 		try {
-			 Role role = new Role();
-			 role.setRoleName("Admin");
-			 
-			 //roleDao.createRole(role);
 
-			 Role newRole = roleDao.getRole(0);
-			 System.out.println("Role: "+newRole.getRoleName());
-			 userDao.createUser(user);
-			 System.out.println("Done");
+			user.setRoleType(role);
+			System.out.println("ROLE: "+user.getRoleType().getRoleName());
+			//roleDao.createRole(role);
+			userDao.createUser(user);
+			System.out.println("Done");
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			System.out.println("Error: "+ e);
+			System.out.println("Error: " + e);
 		}
 
 	}
 
 	public static void main(String[] args) {
-		ApplicationContext context = new ClassPathXmlApplicationContext("META-INF/spring/app-context.xml");
-	    BeanFactory factory = context;
-		Util util = (Util)factory.getBean("util");
-		User newUser = util.getUser();
-		System.out.println(newUser.getUserName());
-		util.testRoles();
+		ApplicationContext context = new ClassPathXmlApplicationContext(
+				"META-INF/spring/app-context.xml");
+		BeanFactory factory = context;
+		Util util = (Util) factory.getBean("util");
+		// User newUser = util.getUser();
+		// System.out.println(newUser.getUserName());
+		//util.testRoles();
+		exportSchema();
+	}
+
+	public Role getRole() {
+		return role;
+	}
+
+	@Resource(name = "roleTest")
+	public void setRole(Role role) {
+		this.role = role;
 	}
 
 	public User getUser() {

@@ -13,6 +13,7 @@ import com.abhishek.leaveapplication.model.Role;
 @Transactional
 public class RoleDaoImpl extends DaoImplBase implements RoleDAO {
 
+	
 	public long createRole(Role roleType) throws Exception {
 		if (roleType == null) {
 			throw new Exception("ERROR: Role is required");
@@ -21,7 +22,8 @@ public class RoleDaoImpl extends DaoImplBase implements RoleDAO {
 		long id = (Long) session.save(roleType);
 		return id;
 	}
-
+	
+	
 	public Role getRole(long roleId) throws Exception {
 		if(Long.valueOf(roleId)==null){
 			throw new Exception("ERROR: Role id is required");

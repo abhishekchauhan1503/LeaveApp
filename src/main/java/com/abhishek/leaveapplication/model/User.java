@@ -25,10 +25,13 @@ public class User {
 	@Column(name = "PASSWORD", nullable = false)
 	private String password;
 
-	@ManyToOne(cascade = { CascadeType.ALL })
-	@JoinColumn(name = "ROLE_ID", nullable = false)
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "ROLE_ID", nullable = false, columnDefinition = "bigint default 1")
 	private Role roleType;
 
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "MANAGER_ID", nullable = false, columnDefinition = "bigint default 1")
+	private User managerId;
 	public long getId() {
 		return id;
 	}
