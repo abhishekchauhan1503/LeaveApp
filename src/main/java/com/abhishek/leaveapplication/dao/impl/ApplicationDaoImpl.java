@@ -4,15 +4,25 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.dao.DataRetrievalFailureException;
+import org.springframework.stereotype.Repository;
+import org.springframework.test.context.transaction.TransactionConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.abhishek.leaveapplication.dao.ApplicationDAO;
 import com.abhishek.leaveapplication.model.Application;
-
+@TransactionConfiguration
+@Transactional
+@Repository
 public class ApplicationDaoImpl extends DaoImplBase implements ApplicationDAO {
 
 	public long createNewApplication(Application application) throws Exception {
-		if(application.getFrom() == null || application.getTo() == null || application.getSubmissionDate() == null || application.getContent() ==null || (application.getStatus() != 'P' && application.getStatus() != 'R' && application.getStatus() != 'A'))
-		{
+		if (application.getFrom() == null
+				|| application.getTo() == null
+				|| application.getSubmissionDate() == null
+				|| application.getContent() == null
+				|| (application.getStatus() != 'P'
+						&& application.getStatus() != 'R' && application
+						.getStatus() != 'A')) {
 			throw new DataRetrievalFailureException("Missing attributes");
 		}
 			Session session = sessionFactory.getCurrentSession();

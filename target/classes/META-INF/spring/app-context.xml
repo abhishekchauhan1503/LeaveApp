@@ -60,8 +60,17 @@
 		<beans:property name="roleName" value="Admin"></beans:property>
 	</beans:bean>
 	<beans:bean id="userDao"
-		class="com.abhishek.leaveapplication.dao.impl.UserDaoImpl" />
+		class="com.abhishek.leaveapplication.dao.impl.UserDaoImpl">
+		<beans:property name="sessionFactory" ref="sessionFactory"></beans:property>
+	</beans:bean>
 	<beans:bean id="roleDao"
-		class="com.abhishek.leaveapplication.dao.impl.RoleDaoImpl" />
+		class="com.abhishek.leaveapplication.dao.impl.RoleDaoImpl">
+		<beans:property name="sessionFactory" ref="sessionFactory"></beans:property>
+	</beans:bean>
+	<beans:bean id="applicationDao"
+		class="com.abhishek.leaveapplication.dao.impl.ApplicationDaoImpl">
+		<beans:property name="sessionFactory" ref="sessionFactory"></beans:property>
+	</beans:bean>
+	
 	<beans:bean id="util" class="com.abhishek.leaveapplication.utils.Util" />
 </beans:beans>

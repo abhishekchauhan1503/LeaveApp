@@ -62,7 +62,7 @@ public class Util {
 
 			user.setRoleType(role);
 			System.out.println("ROLE: " + user.getRoleType().getRoleName());
-			// roleDao.createRole(role);
+			roleDao.createRole(role);
 			userDao.createUser(user);
 			System.out.println("Done");
 		} catch (Exception e) {
@@ -76,10 +76,10 @@ public class Util {
 				"META-INF/spring/app-context.xml");
 		BeanFactory factory = context;
 		Util util = (Util) factory.getBean("util");
-		// User newUser = util.getUser();
-		// System.out.println(newUser.getUserName());
+		User newUser = util.getUser();
+		System.out.println(newUser.getUserName());
 		// util.testRoles();
-		exportSchema();
+		// exportSchema();
 	}
 
 	public Role getRole() {

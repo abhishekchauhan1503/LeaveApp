@@ -9,6 +9,7 @@ import org.hibernate.criterion.Restrictions;
 import org.hibernate.jdbc.Expectations;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.dao.DataRetrievalFailureException;
+import org.springframework.stereotype.Repository;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +19,7 @@ import com.abhishek.leaveapplication.model.User;
 
 @TransactionConfiguration
 @Transactional
+@Repository
 public class UserDaoImpl extends DaoImplBase implements UserDAO {
 
 	public long createUser(User user) throws Exception {
