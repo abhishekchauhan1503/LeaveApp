@@ -23,7 +23,7 @@ public class UserDaoImpl extends DaoImplBase implements UserDAO {
 	public long createUser(User user) throws Exception {
 		if (user == null || user.getUserName() == null
 				|| user.getPassword() == null || user.getRoleType() == null) {
-			throw new Exception(
+			throw new DataRetrievalFailureException(
 					"ERROR: Username, password and role type are required.");
 		}
 		Session session = sessionFactory.getCurrentSession();

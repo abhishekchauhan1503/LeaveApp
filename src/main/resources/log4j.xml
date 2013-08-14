@@ -4,10 +4,9 @@
 
 	<!-- Appenders -->
 	<appender name="fileLog" class="org.apache.log4j.DailyRollingFileAppender">
-		<param name="File" value="/home/abhishek/LeaveApplicationLogs/DAO/LeaveApplicationDAO.log" />
+		<param name="File" value="/home/abhishekchauhan1503/LeaveApplicationLogs/DAO/LeaveApplicationDAO.log" />
 		<param name="DatePattern" value="'.'yyyy-MM-dd-HH" />
 		<param name="Append" value="true" />
-		<param name="Threshold" value="TRACE" />
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} - %p - %C{1} - %m%n" />
 		</layout>

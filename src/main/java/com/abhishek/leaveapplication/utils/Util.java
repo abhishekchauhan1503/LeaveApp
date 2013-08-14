@@ -18,6 +18,7 @@ import com.abhishek.leaveapplication.dao.RoleDAO;
 import com.abhishek.leaveapplication.dao.UserDAO;
 import com.abhishek.leaveapplication.dao.impl.RoleDaoImpl;
 import com.abhishek.leaveapplication.dao.impl.UserDaoImpl;
+import com.abhishek.leaveapplication.model.Application;
 import com.abhishek.leaveapplication.model.Role;
 import com.abhishek.leaveapplication.model.User;
 
@@ -49,7 +50,7 @@ public class Util {
 		AnnotationConfiguration config = new AnnotationConfiguration();
 		config.addAnnotatedClass(Role.class);
 		config.addAnnotatedClass(User.class);
-
+		config.addAnnotatedClass(Application.class);
 		config.configure("hibernate.cfg.xml");
 
 		new SchemaExport(config).create(true, false);
@@ -60,8 +61,8 @@ public class Util {
 		try {
 
 			user.setRoleType(role);
-			System.out.println("ROLE: "+user.getRoleType().getRoleName());
-			//roleDao.createRole(role);
+			System.out.println("ROLE: " + user.getRoleType().getRoleName());
+			// roleDao.createRole(role);
 			userDao.createUser(user);
 			System.out.println("Done");
 		} catch (Exception e) {
@@ -77,7 +78,7 @@ public class Util {
 		Util util = (Util) factory.getBean("util");
 		// User newUser = util.getUser();
 		// System.out.println(newUser.getUserName());
-		//util.testRoles();
+		// util.testRoles();
 		exportSchema();
 	}
 

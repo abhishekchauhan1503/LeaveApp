@@ -1,6 +1,8 @@
 package com.abhishek.leaveapplication.dao.impl;
 
 import static org.junit.Assert.*;
+import org.springframework.dao.DataRetrievalFailureException;
+
 
 import org.hibernate.SessionFactory;
 import org.junit.After;
@@ -53,12 +55,12 @@ public class UserOperationsTest extends
 	public void tearDown() throws Exception {
 	}
 
-	@Test(expected = Exception.class)
+	@Test(expected = DataRetrievalFailureException.class)
 	public void createUser_NullUser_ThrowsException() throws Exception {
 		userDaoImpl.createUser(null);
 	}
 
-	@Test(expected = Exception.class)
+	@Test(expected = DataRetrievalFailureException.class)
 	public void createUser_NullAttributes_ThrowsException() throws Exception {
 		userDaoImpl.createUser(new User());
 	}
@@ -98,7 +100,7 @@ public class UserOperationsTest extends
 		assertEquals(receivedManager, receivedUser.getManagerId());
 	}
 
-	@Test(expected = Exception.class)
+	@Test(expected = DataRetrievalFailureException.class)
 	public void createRole_NullRole_ThrowsException() throws Exception {
 		roleDaoImpl.createRole(null);
 	}

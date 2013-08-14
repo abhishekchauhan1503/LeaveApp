@@ -3,6 +3,7 @@ package com.abhishek.leaveapplication.dao.impl;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.dao.DataRetrievalFailureException;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,7 +17,7 @@ public class RoleDaoImpl extends DaoImplBase implements RoleDAO {
 	
 	public long createRole(Role roleType) throws Exception {
 		if (roleType == null) {
-			throw new Exception("ERROR: Role is required");
+			throw new DataRetrievalFailureException("ERROR: Role is required");
 		}
 		Session session = sessionFactory.getCurrentSession();
 		long id = (Long) session.save(roleType);
@@ -26,7 +27,7 @@ public class RoleDaoImpl extends DaoImplBase implements RoleDAO {
 	
 	public Role getRole(long roleId) throws Exception {
 		if(Long.valueOf(roleId)==null){
-			throw new Exception("ERROR: Role id is required");
+			throw new DataRetrievalFailureException("ERROR: Role id is required");
 		}
 		Session session = sessionFactory.getCurrentSession();
 		Criteria criteria = session.createCriteria(Role.class);
