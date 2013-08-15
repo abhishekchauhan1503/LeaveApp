@@ -21,7 +21,7 @@
 	<beans:bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close" p:driverClassName="com.mysql.jdbc.Driver"
 		p:url="jdbc:mysql://localhost:3306/LeaveApplication" p:username="root"
-		p:password="MP04@mq4298" />
+		p:password="" />
 
 	<beans:bean id="sessionFactory"
 		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
@@ -59,7 +59,7 @@
 		<beans:property name="roleId" value="0"></beans:property>
 		<beans:property name="roleName" value="Admin"></beans:property>
 	</beans:bean>
-	<beans:bean id="userDao"
+	<!-- <beans:bean id="userDao"
 		class="com.abhishek.leaveapplication.dao.impl.UserDaoImpl">
 		<beans:property name="sessionFactory" ref="sessionFactory"></beans:property>
 	</beans:bean>
@@ -71,6 +71,6 @@
 		class="com.abhishek.leaveapplication.dao.impl.ApplicationDaoImpl">
 		<beans:property name="sessionFactory" ref="sessionFactory"></beans:property>
 	</beans:bean>
-	
+	 -->
 	<beans:bean id="util" class="com.abhishek.leaveapplication.utils.Util" />
 </beans:beans>
