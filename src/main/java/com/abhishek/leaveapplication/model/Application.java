@@ -24,11 +24,11 @@ public class Application {
 	@Column(name = "APPLICATION_ID")
 	private long id;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne
 	@JoinColumn(name = "USER_ID", nullable = false)
 	private User from;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne
 	@JoinColumn(name = "MANAGER_ID")
 	private User to;
 

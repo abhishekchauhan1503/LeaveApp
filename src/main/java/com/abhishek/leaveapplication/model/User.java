@@ -30,7 +30,7 @@ public class User {
 	@JoinColumn(name = "ROLE_ID", nullable = false, columnDefinition = "bigint default 1")
 	private Role roleType;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "MANAGER_ID", columnDefinition = "bigint default 1")
 	private User managerId;
 	public long getId() {
