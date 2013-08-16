@@ -79,7 +79,7 @@ public class Util {
 		User newUser = util.getUser();
 		System.out.println(newUser.getUserName());
 		// util.testRoles();
-		// exportSchema();
+		exportSchema();
 	}
 
 	public Role getRole() {
