@@ -82,15 +82,15 @@
         references USERS (USER_ID);
         
         alter table MESSAGES 
-        add index FK131AF14CC619798B (FROM), 
+        add index FK131AF14CC619798B (FROM_USER), 
         add constraint FK131AF14CC619798B 
-        foreign key (FROM) 
+        foreign key (FROM_USER) 
         references USERS (USER_ID);
 
     	alter table MESSAGES 
-        add index FK131AF14CC5E9705C (TO), 
+        add index FK131AF14CC5E9705C (TO_USER), 
         add constraint FK131AF14CC5E9705C 
-        foreign key (TO) 
+        foreign key (TO_USER) 
         references USERS (USER_ID);
 
     alter table USERS 
@@ -104,3 +104,7 @@
         add constraint FK4D495E85AA208CE 
         foreign key (MANAGER_ID) 
         references USERS (USER_ID);
+
+INSERT INTO `LeaveApplication`.`ROLES` (`ROLE_ID`, `ROLE_NAME`) VALUES (1, 'Manager');
+INSERT INTO `LeaveApplication`.`ROLES` (`ROLE_ID`, `ROLE_NAME`) VALUES (2, 'User');
+INSERT INTO `LeaveApplication`.`ROLES` (`ROLE_ID`, `ROLE_NAME`) VALUES (3, 'SYSTEM');
