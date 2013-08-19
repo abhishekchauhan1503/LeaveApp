@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestClientException;
 
 import com.abhishek.leaveapplication.model.Message;
+import com.abhishek.leaveapplication.model.User;
 import com.abhishek.leaveapplication.dao.MessageDAO;
 
 @TransactionConfiguration
@@ -45,13 +46,14 @@ public class MessageDaoImpl extends DaoImplBase implements MessageDAO {
 		return count;
 	}
 
-	public ArrayList<Message> getAllMessagesForUser(long userId)
+	public ArrayList<Message> getAllMessagesForUser(User user)
 			throws Exception {
 		Session session = sessionFactory.getCurrentSession();
 		Criteria criteria = session.createCriteria(Message.class);
-		criteria.add(Restrictions.eq("to", userId));
+		criteria.add(Restrictions.eq("to", user));
 		ArrayList<Message> messages = (ArrayList<Message>)criteria.list();
 		return messages;
 	}
 
+	
 }
