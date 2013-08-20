@@ -46,14 +46,31 @@ public class MessageDaoImpl extends DaoImplBase implements MessageDAO {
 		return count;
 	}
 
-	public ArrayList<Message> getAllMessagesForUser(User user)
-			throws Exception {
+	public ArrayList<Message> getAllMessagesForUser(User user) throws Exception {
 		Session session = sessionFactory.getCurrentSession();
 		Criteria criteria = session.createCriteria(Message.class);
 		criteria.add(Restrictions.eq("to", user));
-		ArrayList<Message> messages = (ArrayList<Message>)criteria.list();
+		ArrayList<Message> messages = (ArrayList<Message>) criteria.list();
 		return messages;
 	}
 
-	
+	public long updateMessage(Message messageToUpdate) throws Exception {
+		if (messageToUpdate.getId() <= 0) {
+			throw new DataRetrievalFailureException("Invalid message Id");
+		}
+		String hql = "UPDATE Message SET read =:read WHERE id = :id";
+
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createQuery(hql);
+		query.setParameter("read", messageToUpdate.isRead());
+
+		query.setParameter("id", messageToUpdate.getId());
+
+		int result = query.executeUpdate();
+
+		// session.update(application);
+		return result;
+
+	}
+
 }

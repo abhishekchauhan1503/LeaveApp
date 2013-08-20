@@ -11,4 +11,6 @@ public interface MessageDAO {
 	public long findNumberOfUnreadMessagesForUser(long userId) throws Exception;
 
 	public ArrayList<Message> getAllMessagesForUser(User user) throws Exception;
+	
+	public long updateMessage(Message messageToUpdate) throws Exception;
 }
